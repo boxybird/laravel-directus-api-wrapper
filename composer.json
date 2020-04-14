@@ -2,6 +2,12 @@
   "name": "boxybird/laravel-directus-api-wrapper",
   "description": "A collection of Laravel facades to interact with Directus CMS.",
   "license": "MIT",
+  "keywords": [
+    "laravel",
+    "directus",
+    "api",
+    "wrapper"
+  ],
   "authors": [
     {
       "name": "Andrew Rhyand",
