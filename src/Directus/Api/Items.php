@@ -19,4 +19,12 @@ class Items extends ApiWrapperBase
             $this->http::get("{$this->preparedDirectusUrl()}/items/{$collection}/{$id}", $params)
         );
     }
+
+    public function create(string $collection, array $params = [], string $jwt = '')
+    {
+        return $this->handleApiRequest(
+            $this->http::withToken($jwt)
+                ->post("{$this->preparedDirectusUrl()}/items/{$collection}", $params)
+        );
+    }
 }
