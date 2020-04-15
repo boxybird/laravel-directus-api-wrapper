@@ -22,4 +22,12 @@ class Auth extends ApiWrapperBase
     {
         return $this->handleApiRequest('POST', '/auth/password/request', $params);
     }
+
+    public function passwordReset(string $password, string $one_time_use_token)
+    {
+        return $this->handleApiRequest('POST', '/auth/password/reset', [
+            'password' => $password,
+            'token'    => $one_time_use_token,
+        ]);
+    }
 }
