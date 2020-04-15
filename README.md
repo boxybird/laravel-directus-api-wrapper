@@ -82,7 +82,7 @@ Route::get('/items', function () {
     // Get items from collection 'posts' with params
     $items = Items::list('posts', [
         'fields' => '*.*.*',
-        'meta'   => true,
+        'meta'   => '*',
         'filter' => [
             'title' => [
                 'like' => 'Hello, World.'
