@@ -94,7 +94,7 @@ Route::get('/items', function () {
 });
 ```
 
-## Completed Mapping
+## Completed Endpoint Mappings
 
 - _Coming soon..._
 
