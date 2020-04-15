@@ -69,17 +69,17 @@ Route::get('/auth/refresh', function () {
 use BoxyBird\Directus\Facades\Items;
 
 Route::get('/item', function () {
-    // retrieve item from collection 'posts' with id '1'
+    // Get item from collection 'posts' with id '1'
     $item = Items::retrieve('posts', 1);
 
     // Reference: https://docs.directus.io/api/items.html#retrieve-an-item
 });
 
 Route::get('/items', function () {
-    // name of a example collection 'posts'
+    // Get items from collection 'posts'
     $items = Items::list('posts');
 
-    // name of a example collection 'posts' with params
+    // Get items from collection 'posts' with params
     $items = Items::list('posts', [
         'fields' => '*.*.*',
         'meta'   => true,
