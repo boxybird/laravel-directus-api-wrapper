@@ -62,7 +62,9 @@ abstract class ApiWrapperBase
 
     protected function setDirectusResponse(Response $response)
     {
-        $this->directus_response = $response->json();
+        $json = !empty($response->json()) ? $response->json() : [];
+
+        $this->directus_response = array_merge($json, ['status' => $response->status()]);
     }
 
     protected function buildBaseUrl()
