@@ -1,10 +1,11 @@
 <?php
 
-namespace  BoxyBird\Directus\Directus;
+namespace BoxyBird\Directus\Directus;
 
 use Exception;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use BoxyBird\Directus\Facades\Directus;
 
 abstract class ApiWrapperBase
 {
@@ -16,11 +17,14 @@ abstract class ApiWrapperBase
 
     public $directus_response;
 
+    private $jwt = '';
+
     public function __construct(string $base_url, string $project_name)
     {
-        $this->http         = Http::class;
         $this->base_url     = $base_url;
         $this->project_name = $project_name;
+        $this->http         = Http::class;
+        $this->jwt          = Directus::getJwt();
     }
 
     protected function handleApiRequest(Response $response)
@@ -32,6 +36,11 @@ abstract class ApiWrapperBase
         }
 
         return $this->directus_response;
+    }
+
+    protected function handleJwt(string $jwt)
+    {
+        return !empty($jwt) ? $jwt : $this->jwt;
     }
 
     protected function preparedDirectusUrl()

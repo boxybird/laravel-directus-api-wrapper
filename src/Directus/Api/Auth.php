@@ -13,10 +13,12 @@ class Auth extends ApiWrapperBase
         );
     }
 
-    public function refresh(string $jwt)
+    public function refresh(string $jwt = '')
     {
         return $this->handleApiRequest(
-            $this->http::post("{$this->preparedDirectusUrl()}/auth/refresh", ['token' => $jwt])
+            $this->http::post("{$this->preparedDirectusUrl()}/auth/refresh", [
+                'token' => $this->handleJwt($jwt)
+            ])
         );
     }
 
