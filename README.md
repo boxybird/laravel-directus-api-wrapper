@@ -81,7 +81,7 @@ Route::get('/auth/authenticate', function () {
 });
 
 Route::get('/auth/refresh', function () {
-    $jwt = // eyJ0eXAiOiJ... some stored token in cache
+    $jwt = // eyJ0eXAiOiJ... some token stored in cache
     $auth = Auth::refresh($jwt);
 
     dd($auth);
