@@ -1,6 +1,6 @@
 # Laravel Directus API Wrapper
 
-A collection of Laravel facades to interact with Directus CMS (version 8).
+A collection of Laravel 7 facades to interact with Directus CMS (version 8).
 
 ## Disclaimer
 
@@ -30,6 +30,37 @@ DIRECTUS_PROJECT_NAME=some-project-name
 
 ## Usage
 
+### Authentication:
+
+```php
+<?php
+
+use BoxyBird\Directus\Facades\Auth;
+use BoxyBird\Directus\Facades\Directus;
+
+Route::get('/auth/authenticate', function () {
+    $auth = Auth::authenticate([
+        'email'    => 'some-directus-user@gmail.com',
+        'password' => '12345678'
+    ]);
+
+    // Get token or ''
+    $jwt = data_get($auth, 'data.token', '');
+
+    // Cache token with 15 min ttl
+    Directus::setJwt($jwt, 900);
+
+    // Reference: https://docs.directus.io/api/authentication.html#retrieve-a-temporary-access-token
+});
+
+Route::get('/auth/refresh', function () {
+    // Attempt to refresh token
+    $auth = Auth::refresh();
+
+    // Reference: https://docs.directus.io/api/authentication.html#refresh-a-temporary-access-token
+});
+```
+
 ### Items:
 
 ```php
@@ -41,8 +72,6 @@ Route::get('/item', function () {
     // retrieve item from collection 'posts' with id '1'
     $item = Items::retrieve('posts', 1);
 
-    dd($item);
-
     // Reference: https://docs.directus.io/api/items.html#retrieve-an-item
 });
 
@@ -53,44 +82,26 @@ Route::get('/items', function () {
     // name of a example collection 'posts' with params
     $items = Items::list('posts', [
         'fields' => '*.*.*',
+        'meta'   => true,
         'filter' => [
             'title' => [
                 'like' => 'Hello, World.'
             ]
-        ]
+        ],
     ]);
-
-    dd($items);
 
     // Reference: https://docs.directus.io/api/items.html#list-the-items
 });
 ```
 
-### Authentication:
+## Completed Mapping
 
-```php
-<?php
+- _Coming soon..._
 
-use BoxyBird\Directus\Facades\Auth;
+## Todos
 
-Route::get('/auth/authenticate', function () {
-    $auth = Auth::authenticate([
-        'email'    => 'some-directus-user@gmail.com',
-        'password' => '12345678'
-    ]);
+- Continue to map Directus API endpoints (https://docs.directus.io/api/reference.html)
 
-    dd($auth);
+## License
 
-    // Reference: https://docs.directus.io/api/authentication.html#retrieve-a-temporary-access-token
-});
-
-Route::get('/auth/refresh', function () {
-    $jwt = // eyJ0eXAiOiJ... some token stored in cache
-    $auth = Auth::refresh($jwt);
-
-    dd($auth);
-
-    // Reference: https://docs.directus.io/api/authentication.html#refresh-a-temporary-access-token
-});
-
-```
+[MIT license](https://opensource.org/licenses/MIT)
