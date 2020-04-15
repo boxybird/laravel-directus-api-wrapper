@@ -23,7 +23,7 @@ abstract class ApiWrapperBase
         $this->project_name = $project_name;
     }
 
-    protected function processApiGetRequest(Response $response)
+    protected function handleApiRequest(Response $response)
     {
         $this->setDirectusResponse($response);
 
