@@ -8,17 +8,11 @@ class Collections extends ApiWrapperBase
 {
     public function list(array $params = [], $jwt = '')
     {
-        return $this->handleApiRequest(
-            $this->http::withToken($this->handleJwt($jwt))
-                ->get("{$this->preparedDirectusUrl()}/collections", $params)
-        );
+        return $this->handleApiRequest('GET', '/collections', $params, $jwt);
     }
 
     public function retrieve(string $collection, array $params = [], $jwt = '')
     {
-        return $this->handleApiRequest(
-            $this->http::withToken($this->handleJwt($jwt))
-                ->get("{$this->preparedDirectusUrl()}/collections/{$collection}", $params)
-        );
+        return $this->handleApiRequest('GET', "/collections/{$collection}", $params, $jwt);
     }
 }

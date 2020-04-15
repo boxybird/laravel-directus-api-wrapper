@@ -8,25 +8,16 @@ class Items extends ApiWrapperBase
 {
     public function list(string $collection, array $params = [], string $jwt = '')
     {
-        return $this->handleApiRequest(
-            $this->http::withToken($this->handleJwt($jwt))
-                ->get("{$this->preparedDirectusUrl()}/items/{$collection}", $params)
-        );
+        return $this->handleApiRequest('GET', "/items/{$collection}", $params, $jwt);
     }
 
     public function retrieve(string $collection, int $id, array $params = [], string $jwt = '')
     {
-        return $this->handleApiRequest(
-            $this->http::withToken($this->handleJwt($jwt))
-                ->get("{$this->preparedDirectusUrl()}/items/{$collection}/{$id}", $params)
-        );
+        return $this->handleApiRequest('GET', "/items/{$collection}/{$id}", $params, $jwt);
     }
 
-    public function create(string $collection, array $params = [], string $jwt = '')
+    public function create(string $collection, array $params, string $jwt = '')
     {
-        return $this->handleApiRequest(
-            $this->http::withToken($this->handleJwt($jwt))
-                ->post("{$this->preparedDirectusUrl()}/items/{$collection}", $params)
-        );
+        return $this->handleApiRequest('POST', "/items/{$collection}", $params, $jwt);
     }
 }

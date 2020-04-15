@@ -27,7 +27,15 @@ abstract class ApiWrapperBase
         $this->jwt          = Directus::getJwt();
     }
 
-    protected function handleApiRequest(Response $response)
+    protected function handleApiRequest(string $http_method, string $endpoint, array $params = [], string $jwt = '')
+    {
+        return $this->handleApiResponse(
+            $this->http::withToken($this->handleJwt($jwt))
+                ->$http_method("{$this->buildBaseUrl()}{$endpoint}", $params)
+        );
+    }
+
+    protected function handleApiResponse(Response $response)
     {
         $this->setDirectusResponse($response);
 
@@ -38,21 +46,6 @@ abstract class ApiWrapperBase
         return $this->directus_response;
     }
 
-    protected function handleJwt(string $jwt)
-    {
-        return !empty($jwt) ? $jwt : $this->jwt;
-    }
-
-    protected function preparedDirectusUrl()
-    {
-        return "{$this->base_url}/{$this->project_name}";
-    }
-
-    protected function setDirectusResponse(Response $response)
-    {
-        $this->directus_response = $response->json();
-    }
-
     protected function handleNoDirectusResponse(Response $response)
     {
         $uri = $response->effectiveUri();
@@ -60,5 +53,20 @@ abstract class ApiWrapperBase
         throw new Exception(
             "No data returned from Directus URL \"{$url}\""
         );
+    }
+
+    protected function handleJwt(string $jwt)
+    {
+        return !empty($jwt) ? $jwt : $this->jwt;
+    }
+
+    protected function setDirectusResponse(Response $response)
+    {
+        $this->directus_response = $response->json();
+    }
+
+    protected function buildBaseUrl()
+    {
+        return "{$this->base_url}/{$this->project_name}";
     }
 }

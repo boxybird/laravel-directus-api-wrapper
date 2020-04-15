@@ -6,26 +6,20 @@ use BoxyBird\Directus\Directus\ApiWrapperBase;
 
 class Auth extends ApiWrapperBase
 {
-    public function authenticate(array $credentials)
+    public function authenticate(array $params)
     {
-        return $this->handleApiRequest(
-            $this->http::post("{$this->preparedDirectusUrl()}/auth/authenticate", $credentials)
-        );
+        return $this->handleApiRequest('POST', '/auth/authenticate', $params);
     }
 
     public function refresh(string $jwt = '')
     {
-        return $this->handleApiRequest(
-            $this->http::post("{$this->preparedDirectusUrl()}/auth/refresh", [
-                'token' => $this->handleJwt($jwt)
-            ])
-        );
+        return $this->handleApiRequest('POST', '/auth/refresh', [
+            'token' => $this->handleJwt($jwt)
+        ]);
     }
 
     public function passwordRequest(array $params)
     {
-        return $this->handleApiRequest(
-            $this->http::post("{$this->preparedDirectusUrl()}/auth/password/request", $params)
-        );
+        return $this->handleApiRequest('POST', '/auth/password/request', $params);
     }
 }
