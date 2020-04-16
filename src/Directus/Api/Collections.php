@@ -15,4 +15,19 @@ class Collections extends ApiWrapperBase
     {
         return $this->handleApiRequest('GET', "/collections/{$collection}", $params, $jwt);
     }
+
+    public function create(array $params, string $jwt = '')
+    {
+        return $this->handleApiRequest('POST', '/collections', $params, $jwt);
+    }
+
+    public function update(string $collection, array $params, string $jwt = '')
+    {
+        return $this->handleApiRequest('PATCH', "/collections/{$collection}", $params, $jwt);
+    }
+
+    public function delete(string $collection, string $jwt = '')
+    {
+        return $this->handleApiRequest('DELETE', "/collections/{$collection}", [], $jwt);
+    }
 }
