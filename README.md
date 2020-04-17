@@ -85,18 +85,108 @@ Route::get('/items', function () {
         'meta'   => '*',
         'filter' => [
             'title' => [
-                'like' => 'Hello, World.'
+                'like' => 'Hello, World.',
             ]
         ],
     ]);
 
     // Reference: https://docs.directus.io/api/items.html#list-the-items
 });
+
+Route::get('/item/create', function () {
+    // Create new item in collection 'posts'
+    $create = Items::create('posts', [
+        'title'   => 'Hello, World.',
+        'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit!',
+    ]);
+
+    // Reference: https://docs.directus.io/api/items.html#create-an-item
+});
+
+Route::get('/item/update', function () {
+    // Update item in collection 'posts' with id '1'
+    $create = Items::update('posts', 1, [
+        'title'   => 'Hi, World.',
+    ]);
+
+    // Reference: https://docs.directus.io/api/items.html#update-an-item
+});
+
+Route::get('/item/delete', function () {
+    // Delete item in collection 'posts' with id '1'
+    $create = Items::delete('posts', 1);
+
+    // Reference: https://docs.directus.io/api/items.html#delete-an-item
+});
+```
+
+### Collections:
+
+```php
+<?php
+
+use BoxyBird\Directus\Facades\Collections;
+
+Route::get('/collection', function () {
+    // Retrieves the details of collection 'posts'
+    $collection = Collections::retrieve('posts');
+
+    // Reference: https://docs.directus.io/api/collections.html#retrieve-a-collection
+});
+
+Route::get('/collections', function () {
+    // List of the collections available in the project.
+    $collections = Collections::list();
+
+    // Reference: https://docs.directus.io/api/collections.html#list-collections
+});
+
+Route::get('/collections/create', function () {
+    // Create the new collection 'my_collection' with 2 fields
+    $create = Collections::create([
+        'collection' => 'my_collection',
+        'fields'     => [
+            [
+                'field'       => 'id',
+                'type'        => 'integer',
+                'datatype'    => 'int',
+                'length'      => 11,
+                'interface'   => 'numeric',
+                'primary_key' => true,
+            ],
+            [
+                'field'       => 'name',
+                'type'        => 'string',
+                'datatype'    => 'VARCHAR',
+                'length'      => 255,
+                'interface'   => 'text-input',
+            ]
+        ]
+    ]);
+
+    // Reference: https://docs.directus.io/api/collections.html#create-a-collection
+});
+
+Route::get('/collections/update', function () {
+    // Update the collection 'my_collection'
+    $update = Collections::update('my_collection', [
+        'note' => 'This is my first collection'
+    ]);
+
+    // Reference: https://docs.directus.io/api/collections.html#update-a-collection
+});
+
+Route::get('/collections/delete', function () {
+    // Delete the collection 'my_collection'
+    $delete = Collections::delete('my_collection');
+
+    // Reference: https://docs.directus.io/api/collections.html#delete-a-collection
+});
 ```
 
 ## Completed Endpoint Mappings
 
-- _Coming soon..._
+- Collections: https://docs.directus.io/api/collections.html
 
 ## Todos
 
