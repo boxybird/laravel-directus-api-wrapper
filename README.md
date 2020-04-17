@@ -118,6 +118,23 @@ Route::get('/item/delete', function () {
 
     // Reference: https://docs.directus.io/api/items.html#delete-an-item
 });
+
+Route::get('/item/revisions', function () {
+    // Get all revisions in collection 'posts' with id '1'
+    $revisions = Items::listRevisions('posts', 1);
+
+    // Reference: https://docs.directus.io/api/items.html#list-item-revisions
+
+    // Get revision in collection 'posts' with id '1' at offset '3'
+    $revision = Items::retrieveRevision('posts', 1, 3);
+
+    // Reference: https://docs.directus.io/api/items.html#retrieve-an-item-revision
+
+    // Revert to revision in collection 'posts' with id '1' at offset '3'
+    $revert = Items::revertRevision('posts', 1, 3);
+
+    // Reference: https://docs.directus.io/api/items.html#revert-to-a-given-revision
+});
 ```
 
 ### Collections: https://docs.directus.io/api/collections.html
@@ -186,6 +203,7 @@ Route::get('/collections/delete', function () {
 
 ## Completed Endpoint Mappings
 
+- Items: https://docs.directus.io/api/items.html
 - Collections: https://docs.directus.io/api/collections.html
 
 ## Todos
