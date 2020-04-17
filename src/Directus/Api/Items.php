@@ -30,4 +30,19 @@ class Items extends ApiWrapperBase
     {
         return $this->handleApiRequest('DELETE', "/items/{$collection}/{$id}", [], $jwt);
     }
+
+    public function listRevisions(string $collection, int $id, array $params = [], string $jwt = '')
+    {
+        return $this->handleApiRequest('GET', "/items/{$collection}/{$id}/revisions", $params, $jwt);
+    }
+
+    public function retrieveRevision(string $collection, int $id, int $offset, array $params = [], string $jwt = '')
+    {
+        return $this->handleApiRequest('GET', "/items/{$collection}/{$id}/revisions/{$offset}", $params, $jwt);
+    }
+
+    public function revertRevision(string $collection, int $id, int $revision, array $params = [], string $jwt = '')
+    {
+        return $this->handleApiRequest('PATCH', "/items/{$collection}/{$id}/revert/{$revision}", $params, $jwt);
+    }
 }
