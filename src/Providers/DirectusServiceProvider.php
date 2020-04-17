@@ -10,43 +10,46 @@ use BoxyBird\Directus\Directus\Api\Collections;
 
 class DirectusServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../config/directus.php',
+            'directus_config'
+        );
+
         $this->app->bind(Auth::class, function () {
             return new Auth(
-                config('directus.api.base_url'),
-                config('directus.api.project_name')
+                config('directus_config.api.base_url'),
+                config('directus_config.api.project_name')
             );
         });
 
         $this->app->bind(Users::class, function () {
             return new Users(
-                config('directus.api.base_url'),
-                config('directus.api.project_name')
+                config('directus_config.api.base_url'),
+                config('directus_config.api.project_name')
             );
         });
 
         $this->app->bind(Items::class, function () {
             return new Items(
-                config('directus.api.base_url'),
-                config('directus.api.project_name')
+                config('directus_config.api.base_url'),
+                config('directus_config.api.project_name')
             );
         });
 
         $this->app->bind(Collections::class, function () {
             return new Collections(
-                config('directus.api.base_url'),
-                config('directus.api.project_name')
+                config('directus_config.api.base_url'),
+                config('directus_config.api.project_name')
             );
         });
+    }
 
+    public function boot()
+    {
         $this->publishes([
-            __DIR__ . '/../config/directus.php' => config_path('directus.php'),
+            __DIR__ . '/../../config/directus.php' => config_path('directus.php'),
         ]);
     }
 }
