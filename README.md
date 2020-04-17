@@ -30,7 +30,7 @@ DIRECTUS_PROJECT_NAME=some-project-name
 
 ## Usage
 
-### Authentication:
+### Authentication: https://docs.directus.io/api/authentication.html
 
 ```php
 <?php
@@ -61,7 +61,7 @@ Route::get('/auth/refresh', function () {
 });
 ```
 
-### Items:
+### Items: https://docs.directus.io/api/items.html
 
 ```php
 <?php
@@ -120,7 +120,7 @@ Route::get('/item/delete', function () {
 });
 ```
 
-### Collections:
+### Collections: https://docs.directus.io/api/collections.html
 
 ```php
 <?php
