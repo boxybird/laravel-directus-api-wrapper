@@ -4,6 +4,7 @@ namespace BoxyBird\Directus\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use BoxyBird\Directus\Directus\Api\Auth;
+use BoxyBird\Directus\Directus\Api\Files;
 use BoxyBird\Directus\Directus\Api\Items;
 use BoxyBird\Directus\Directus\Api\Users;
 use BoxyBird\Directus\Directus\Api\Collections;
@@ -40,6 +41,13 @@ class DirectusServiceProvider extends ServiceProvider
 
         $this->app->bind(Collections::class, function () {
             return new Collections(
+                config('directus_config.api.base_url'),
+                config('directus_config.api.project_name')
+            );
+        });
+
+        $this->app->bind(Files::class, function () {
+            return new Files(
                 config('directus_config.api.base_url'),
                 config('directus_config.api.project_name')
             );
