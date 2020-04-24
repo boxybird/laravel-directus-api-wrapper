@@ -1,10 +1,11 @@
 # Laravel Directus API Wrapper
 
-A collection of Laravel 7 facades to interact with Directus CMS (version 8).
+A collection of Laravel facades to interact with Directus CMS.
 
-## Disclaimer
+## Requirements
 
-This package is brand new and not ready for production.
+- Laravel 7
+- Directus 8
 
 ## Installation
 
