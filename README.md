@@ -30,6 +30,22 @@ DIRECTUS_PROJECT_NAME=some-project-name
 
 ## Usage
 
+### Requests: https://docs.directus.io/api/reference.html#endpoints
+
+```php
+use BoxyBird\Directus\Facades\Api;
+
+// General API endpoint facade
+$request = Api::request('HTTP_METHOD', 'ENDPOINT');
+
+// Examples
+Api::request('GET', '/users');
+Api::request('POST', '/items/posts', ['...params']);
+Api::request('DELETE', '/server/projects/my_project);
+
+// Reference: https://docs.directus.io/api/reference.html#endpoints
+```
+
 ### Authentication: https://docs.directus.io/api/authentication.html
 
 ```php
@@ -251,16 +267,6 @@ $delete = Collections::delete('my_collection');
 
 // Reference: https://docs.directus.io/api/collections.html#delete-a-collection
 ```
-
-## Completed Endpoint Mappings
-
-- Items: https://docs.directus.io/api/items.html
-- Files: https://docs.directus.io/api/files.html
-- Collections: https://docs.directus.io/api/collections.html
-
-## Todos
-
-- Continue to map Directus API endpoints (https://docs.directus.io/api/reference.html)
 
 ## License
 
