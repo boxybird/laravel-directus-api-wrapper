@@ -2,6 +2,7 @@
 
 namespace BoxyBird\Directus\Providers;
 
+use BoxyBird\Directus\Directus\Api\Api;
 use Illuminate\Support\ServiceProvider;
 use BoxyBird\Directus\Directus\Api\Auth;
 use BoxyBird\Directus\Directus\Api\Files;
@@ -17,6 +18,13 @@ class DirectusServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/directus.php',
             'directus_config'
         );
+
+        $this->app->bind(Api::class, function () {
+            return new Api(
+                config('directus_config.api.base_url'),
+                config('directus_config.api.project_name')
+            );
+        });
 
         $this->app->bind(Auth::class, function () {
             return new Auth(
