@@ -102,7 +102,7 @@ $create = Items::create('posts', [
 ---
 
 // Update item in collection 'posts' with id '1'
-$create = Items::update('posts', 1, [
+$update = Items::update('posts', 1, [
     'title'   => 'Hi, World.',
 ]);
 
@@ -111,7 +111,7 @@ $create = Items::update('posts', 1, [
 ---
 
 // Delete item in collection 'posts' with id '1'
-$create = Items::delete('posts', 1);
+$delete = Items::delete('posts', 1);
 
 // Reference: https://docs.directus.io/api/items.html#delete-an-item
 
@@ -131,6 +131,63 @@ $revision = Items::retrieveRevision('posts', 1, 3);
 $revert = Items::revertRevision('posts', 1, 3);
 
 // Reference: https://docs.directus.io/api/items.html#revert-to-a-given-revision
+```
+
+### Files: https://docs.directus.io/api/files.html
+
+```php
+<?php
+
+use BoxyBird\Directus\Facades\Files;
+
+// Get file with id '1'
+$file = Files::retrieve(1);
+
+// Reference: https://docs.directus.io/api/files.html#list-the-files
+
+---
+
+// Get files
+$files = Files::list();
+
+// Reference: https://docs.directus.io/api/files.html#list-the-files
+
+---
+
+// Create new file
+$create = Files::create([
+    'data' => // Raw file data (multipart/form-data), base64 string of file data, or URL you want to embed.
+]);
+
+// Reference: https://docs.directus.io/api/files.html#create-a-file
+
+---
+
+// Update file 'tags' with id '1'
+$update = Files::update(1, [
+    'tags' => ['apple', 'pear', 'banana']
+]);
+
+// Reference: https://docs.directus.io/api/files.html#update-a-file
+
+---
+
+// Delete file with id '1'
+$delete = Files::delete(1);
+
+// Reference: https://docs.directus.io/api/files.html#delete-a-file
+
+---
+
+// Get all file revisions with id '1'
+$revisions = File::listRevisions(1);
+
+// Reference: https://docs.directus.io/api/files.html#list-file-revisions
+
+// Get file revision with id '1' at offset '3'
+$revision = Files::retrieveRevision(1, 3);
+
+// Reference: https://docs.directus.io/api/files.html#retrieve-a-file-revision
 ```
 
 ### Collections: https://docs.directus.io/api/collections.html
@@ -198,6 +255,7 @@ $delete = Collections::delete('my_collection');
 ## Completed Endpoint Mappings
 
 - Items: https://docs.directus.io/api/items.html
+- Files: https://docs.directus.io/api/files.html
 - Collections: https://docs.directus.io/api/collections.html
 
 ## Todos
