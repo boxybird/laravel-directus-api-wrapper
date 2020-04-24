@@ -42,7 +42,7 @@ $request = Api::request('HTTP_METHOD', 'ENDPOINT');
 // Examples
 Api::request('GET', '/users');
 Api::request('POST', '/items/posts', ['...params']);
-Api::request('DELETE', '/server/projects/my_project);
+Api::request('DELETE', '/server/projects/my_project');
 
 // Reference: https://docs.directus.io/api/reference.html#endpoints
 ```
