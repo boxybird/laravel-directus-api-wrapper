@@ -29,7 +29,7 @@ DIRECTUS_BASE_URL=http://some-directus-install.com
 DIRECTUS_PROJECT_NAME=some-project-name
 ```
 
-## Usage
+## Core Usage
 
 ### Requests: https://docs.directus.io/api/reference.html#endpoints
 
@@ -63,8 +63,18 @@ $auth = Auth::authenticate([
 // Get token or ''
 $jwt = data_get($auth, 'data.token', '');
 
+// Get user or []
+$user = data_get($auth, 'data.user', []);
+
 // Cache token with 15 min ttl
 Directus::setJwt($jwt, 900);
+
+// Cache user with 15 min ttl
+Directus::setUser($user, 900);
+
+// Cached jwt and user helpers
+Directus::getJwt();
+Directus::getUser();
 
 // Reference: https://docs.directus.io/api/authentication.html#retrieve-a-temporary-access-token
 
@@ -75,6 +85,8 @@ $auth = Auth::refresh();
 
 // Reference: https://docs.directus.io/api/authentication.html#refresh-a-temporary-access-token
 ```
+
+## Additional Helpers
 
 ### Items: https://docs.directus.io/api/items.html
 
