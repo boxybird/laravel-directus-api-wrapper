@@ -24,7 +24,6 @@ abstract class ApiWrapperBase
         $this->base_url     = $base_url;
         $this->project_name = $project_name;
         $this->http         = Http::class;
-        $this->jwt          = Directus::getJwt();
     }
 
     protected function handleApiRequest(string $http_method, string $endpoint, array $params = [], string $jwt = '')
@@ -57,7 +56,9 @@ abstract class ApiWrapperBase
 
     protected function handleJwt(string $jwt)
     {
-        return !empty($jwt) ? $jwt : $this->jwt;
+        return empty($jwt)
+            ? $this->jwt = Directus::getJwt()
+            : $jwt;
     }
 
     protected function setDirectusResponse(Response $response)
