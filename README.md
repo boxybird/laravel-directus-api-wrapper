@@ -4,7 +4,7 @@ A collection of Laravel facades to interact with Directus CMS.
 
 ## Requirements
 
-- Laravel 7
+- Laravel 7/8
 - Directus 8
 
 ## Installation
