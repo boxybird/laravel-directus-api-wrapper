@@ -36,8 +36,8 @@ DIRECTUS_PROJECT_NAME=some-project-name
 ```php
 use BoxyBird\Directus\Facades\Api;
 
-// General API endpoint facade
-$request = Api::request('HTTP_METHOD', 'ENDPOINT');
+// General API endpoint facade - 'PARAMS' and 'JWT' are optional
+$request = Api::request('HTTP_METHOD', 'ENDPOINT', 'PARAMS', 'JWT');
 
 // Examples
 Api::request('GET', '/users');
