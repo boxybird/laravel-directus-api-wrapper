@@ -49,6 +49,72 @@ Api::request('DELETE', '/server/projects/my_project');
 
 ### Authentication: https://docs.directus.io/api/authentication.html
 
+#### Per Request:
+
+```php
+<?php
+
+use BoxyBird\Directus\Facades\Api;
+use BoxyBird\Directus\Facades\Auth;
+
+$auth = Auth::authenticate([
+    'email'    => 'some-directus-user@gmail.com',
+    'password' => '12345678'
+]);
+
+// Get token
+$jwt = data_get($auth, 'data.token');
+
+Api::request('GET', '/posts', ['...params'], $jwt);
+Api::request('POST', '/items/posts', ['...params'], $jwt);
+// etc...
+```
+
+#### Per session:
+
+```php
+<?php
+
+use BoxyBird\Directus\Facades\Api;
+use BoxyBird\Directus\Facades\Auth;
+
+Route::post('/login', function (Request $request) {
+    $auth = Auth::authenticate([
+        'email'    => $request->input('email'),
+        'password' => $request->input('password'),
+    ]);
+
+    // Handle invalid credentials
+    if (data_get($auth, 'error')) {
+        abort(403);
+    } 
+
+    // Store in session
+    $request->session()->put('current_user', $auth);
+    
+    return view('some-view');
+});
+
+Route::post('/posts', function (Request $request) {
+    $current_user = $request->session()->get('current_user');
+
+    $jwt = data_get($current_user, 'data.token');
+
+    $created_post = Api::request('POST', '/items/posts', [
+        'title'   => 'Hello, World.',
+        'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit!',
+    ], $jwt);
+
+    // ...
+});
+```
+
+#### Globally:
+
+In some apps you may only need to connect to Directus using a single user. So rather than passing as JWT as an argument on every request, you can use the `BoxyBird\Directus\Facades\Directus` helper facade.
+
+> Under the hood, each request will look to see if `Directus::getJwt()` is set.
+
 ```php
 <?php
 
@@ -66,10 +132,10 @@ $jwt = data_get($auth, 'data.token', '');
 // Get user or []
 $user = data_get($auth, 'data.user', []);
 
-// Cache token with 15 min ttl
+// Cache token globally with 15 min ttl
 Directus::setJwt($jwt, 900);
 
-// Cache user with 15 min ttl
+// Cache user globally with 15 min ttl
 Directus::setUser($user, 900);
 
 // Cached jwt and user helpers
@@ -80,7 +146,7 @@ Directus::getUser();
 
 ---
 
-// Attempt to refresh token
+// Attempt to refresh global token
 $auth = Auth::refresh();
 
 // Reference: https://docs.directus.io/api/authentication.html#refresh-a-temporary-access-token
