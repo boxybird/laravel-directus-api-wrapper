@@ -111,7 +111,7 @@ Route::post('/posts', function (Request $request) {
 
 #### Globally:
 
-In some apps you may only need to connect to Directus using a single user. So rather than passing as JWT as an argument on every request, you can use the `BoxyBird\Directus\Facades\Directus` helper facade.
+In some apps you may only need to connect to Directus using a single user. So rather than passing a JWT as an argument on every request, you can use the `BoxyBird\Directus\Facades\Directus` helper facade.
 
 > Under the hood, each request will look to see if `Directus::getJwt()` is set.
 
